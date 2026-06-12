@@ -1,0 +1,14 @@
+services:
+  qccp-school-sim:
+    build: .
+    container_name: qccp-school-sim
+    ports:
+      - "8100:8100"
+    environment:
+      - DATABASE_URL=sqlite:///./qccp_sim.db
+    volumes:
+      - qccp_school_sim_data:/app
+    restart: unless-stopped
+
+volumes:
+  qccp_school_sim_data:
