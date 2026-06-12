@@ -12,6 +12,7 @@ from app.services.simulation.workorders.work_order_generator import generate_wor
 from app.services.simulation.workorders.field_service_generator import schedule_field_visits, field_service_summary
 from app.services.simulation.billing.sla_evaluator import evaluate_sla, sla_summary
 from app.services.simulation.billing.billing_generator import generate_billing, billing_summary
+from app.services.simulation.service_executive import executive_summary
 
 router = APIRouter(
     prefix="/api/v1/simulation",
@@ -92,3 +93,8 @@ def generate_batch_billing(batch_id: int):
 @router.get("/batches/{batch_id}/billing/summary")
 def get_billing_summary(batch_id: int):
     return billing_summary(batch_id)
+
+
+@router.get("/batches/{batch_id}/executive/summary")
+def get_executive_summary(batch_id: int):
+    return executive_summary(batch_id)
