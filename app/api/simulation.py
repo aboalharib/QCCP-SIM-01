@@ -11,6 +11,7 @@ from app.services.simulation.qra.qra_alignment import run_qra_alignment, qra_sum
 from app.services.simulation.workorders.work_order_generator import generate_work_orders, work_order_summary
 from app.services.simulation.workorders.field_service_generator import schedule_field_visits, field_service_summary
 from app.services.simulation.billing.sla_evaluator import evaluate_sla, sla_summary
+from app.services.simulation.billing.billing_generator import generate_billing, billing_summary
 
 router = APIRouter(
     prefix="/api/v1/simulation",
@@ -81,3 +82,13 @@ def evaluate_batch_sla(batch_id: int):
 @router.get("/batches/{batch_id}/sla/summary")
 def get_sla_summary(batch_id: int):
     return sla_summary(batch_id)
+
+
+@router.post("/batches/{batch_id}/billing/generate")
+def generate_batch_billing(batch_id: int):
+    return generate_billing(batch_id)
+
+
+@router.get("/batches/{batch_id}/billing/summary")
+def get_billing_summary(batch_id: int):
+    return billing_summary(batch_id)

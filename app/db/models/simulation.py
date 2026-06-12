@@ -184,3 +184,18 @@ class SimulatedSlaRecord(Base):
     compliance_score = Column(Float, nullable=False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedInvoice(Base):
+    __tablename__ = "simulated_invoices"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    organization_name = Column(String(160), nullable=False, index=True)
+    invoice_type = Column(String(80), nullable=False, default="Business Subscription")
+    subscription_model = Column(String(120), nullable=False, default="QAIR Enterprise Subscription")
+    amount_qAR = Column(Float, nullable=False)
+    status = Column(String(40), nullable=False, default="issued")
+    billing_note = Column(Text, nullable=True)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
