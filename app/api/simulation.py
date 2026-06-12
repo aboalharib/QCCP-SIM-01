@@ -14,6 +14,7 @@ from app.services.simulation.billing.sla_evaluator import evaluate_sla, sla_summ
 from app.services.simulation.billing.billing_generator import generate_billing, billing_summary
 from app.services.simulation.service_executive import executive_summary
 from app.services.simulation.scenarios.scenario_engine import inject_scenario, scenario_summary
+from app.services.simulation.full_run import run_full_school_network
 
 router = APIRouter(
     prefix="/api/v1/simulation",
@@ -109,3 +110,8 @@ def inject_batch_scenario(batch_id: int, scenario_name: str, severity: str = "mo
 @router.get("/batches/{batch_id}/scenarios/summary")
 def get_scenario_summary(batch_id: int):
     return scenario_summary(batch_id)
+
+
+@router.post("/run/full-school-network")
+def run_full_school_network_simulation():
+    return run_full_school_network()
