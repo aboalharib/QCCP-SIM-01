@@ -5,6 +5,23 @@ from app.db.models.simulation import SimulationBatch, SimulationEvent
 def create_school_network_batch():
     db = SessionLocal()
 
+    existing = (
+        db.query(SimulationBatch)
+        .filter(SimulationBatch.batch_name == "school_network_20x3")
+        .first()
+    )
+
+    if existing:
+        result = {
+            "batch_id": existing.id,
+            "batch_name": existing.batch_name,
+            "status": existing.status,
+            "created": False,
+            "message": "Batch already exists",
+        }
+        db.close()
+        return result
+
     batch = SimulationBatch(
         batch_name="school_network_20x3",
         scenario_name="National School Environmental Monitoring",
@@ -30,8 +47,9 @@ def create_school_network_batch():
         "batch_id": batch.id,
         "batch_name": batch.batch_name,
         "status": batch.status,
+        "created": True,
+        "message": "Batch created",
     }
 
     db.close()
-
     return result
