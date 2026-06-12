@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.simulation import router as simulation_router
 from app.db.database import engine
 from app.db.models.simulation import Base
 
@@ -9,6 +10,8 @@ app = FastAPI(
     title="QCCP School Simulator",
     version="1.0.0",
 )
+
+app.include_router(simulation_router)
 
 
 @app.get("/health")
