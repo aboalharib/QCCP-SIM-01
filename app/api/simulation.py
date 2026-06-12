@@ -9,6 +9,7 @@ from app.services.simulation.telemetry.telemetry_generator import send_telemetry
 from app.services.simulation.telemetry.telemetry_summary import telemetry_summary
 from app.services.simulation.qra.qra_alignment import run_qra_alignment, qra_summary
 from app.services.simulation.workorders.work_order_generator import generate_work_orders, work_order_summary
+from app.services.simulation.workorders.field_service_generator import schedule_field_visits, field_service_summary
 
 router = APIRouter(
     prefix="/api/v1/simulation",
@@ -59,3 +60,13 @@ def generate_batch_work_orders(batch_id: int):
 @router.get("/batches/{batch_id}/work-orders/summary")
 def get_work_order_summary(batch_id: int):
     return work_order_summary(batch_id)
+
+
+@router.post("/batches/{batch_id}/field-service/schedule")
+def schedule_batch_field_service(batch_id: int):
+    return schedule_field_visits(batch_id)
+
+
+@router.get("/batches/{batch_id}/field-service/summary")
+def get_field_service_summary(batch_id: int):
+    return field_service_summary(batch_id)

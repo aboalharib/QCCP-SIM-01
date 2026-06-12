@@ -155,3 +155,17 @@ class SimulatedWorkOrder(Base):
     description = Column(Text, nullable=False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedFieldVisit(Base):
+    __tablename__ = "simulated_field_visits"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    work_order_id = Column(Integer, nullable=False, index=True)
+    device_uid = Column(String(80), nullable=False, index=True)
+    technician_team = Column(String(80), nullable=False)
+    visit_status = Column(String(40), nullable=False, default="assigned")
+    scheduled_window = Column(String(120), nullable=False)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
