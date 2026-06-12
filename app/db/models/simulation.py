@@ -125,3 +125,18 @@ class SimulatedDeviceHealth(Base):
     message = Column(Text, nullable=True)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedQraAlignment(Base):
+    __tablename__ = "simulated_qra_alignment"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    device_uid = Column(String(80), nullable=False, index=True)
+    nearest_qern_station = Column(String(120), nullable=False)
+    alignment_score = Column(Float, nullable=False)
+    drift_percent = Column(Float, nullable=False)
+    confidence_score = Column(Float, nullable=False)
+    recommendation = Column(Text, nullable=False)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
