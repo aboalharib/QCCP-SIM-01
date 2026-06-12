@@ -199,3 +199,16 @@ class SimulatedInvoice(Base):
     billing_note = Column(Text, nullable=True)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedScenarioInjection(Base):
+    __tablename__ = "simulated_scenario_injections"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    scenario_name = Column(String(120), nullable=False)
+    severity = Column(String(40), nullable=False, default="moderate")
+    affected_scope = Column(String(120), nullable=False, default="school_network")
+    effect_summary = Column(Text, nullable=False)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
