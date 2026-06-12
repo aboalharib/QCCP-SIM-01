@@ -1,5 +1,5 @@
 from app.db.database import SessionLocal
-from app.db.models.simulation import SimulationBatch, SimulationEvent
+from app.db.models.simulation import SimulationBatch, SimulationEvent, SimulatedOrganization, SimulatedSite, SimulatedDevice, SimulatedUser
 
 
 def create_school_network_batch():
@@ -53,3 +53,31 @@ def create_school_network_batch():
 
     db.close()
     return result
+
+
+def get_batch_summary(batch_id: int):
+    db = SessionLocal()
+
+    summary = {
+        "batch_id": batch_id,
+        "government_accounts": db.query(SimulatedOrganization).filter(
+            SimulatedOrganization.batch_id == batch_id,
+            SimulatedOrganization.account_type == "Government",
+        ).count(),
+        "business_accounts": db.query(SimulatedOrganization).filter(
+            SimulatedOrganization.batch_id == batch_id,
+            SimulatedOrganization.account_type == "Business",
+        ).count(),
+        "sites": db.query(SimulatedSite).filter(
+            SimulatedSite.batch_id == batch_id
+        ).count(),
+        "devices": db.query(SimulatedDevice).filter(
+            SimulatedDevice.batch_id == batch_id
+        ).count(),
+        "users": db.query(SimulatedUser).filter(
+            SimulatedUser.batch_id == batch_id
+        ).count(),
+    }
+
+    db.close()
+    return summary
