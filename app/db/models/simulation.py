@@ -169,3 +169,18 @@ class SimulatedFieldVisit(Base):
     scheduled_window = Column(String(120), nullable=False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedSlaRecord(Base):
+    __tablename__ = "simulated_sla_records"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    organization_name = Column(String(160), nullable=False, index=True)
+    sla_model = Column(String(80), nullable=False, default="Enterprise SLA")
+    open_work_orders = Column(Integer, nullable=False, default=0)
+    field_visits = Column(Integer, nullable=False, default=0)
+    compliance_status = Column(String(40), nullable=False)
+    compliance_score = Column(Float, nullable=False)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
