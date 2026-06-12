@@ -90,3 +90,38 @@ class SimulatedDevice(Base):
     reference_status = Column(String(80), nullable=False, default="non_reference")
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedTelemetry(Base):
+    __tablename__ = "simulated_telemetry"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    device_uid = Column(String(80), nullable=False, index=True)
+    device_model = Column(String(80), nullable=False)
+    location_label = Column(String(120), nullable=False)
+    profile = Column(String(80), nullable=False)
+
+    pm1 = Column(Float, nullable=True)
+    pm25 = Column(Float, nullable=True)
+    pm10 = Column(Float, nullable=True)
+    co2 = Column(Float, nullable=True)
+    temperature = Column(Float, nullable=True)
+    humidity = Column(Float, nullable=True)
+    tvoc = Column(Float, nullable=True)
+    nox = Column(Float, nullable=True)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedDeviceHealth(Base):
+    __tablename__ = "simulated_device_health"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    device_uid = Column(String(80), nullable=False, index=True)
+    health_score = Column(Float, nullable=False, default=100.0)
+    status = Column(String(40), nullable=False, default="healthy")
+    message = Column(Text, nullable=True)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
