@@ -1,8 +1,12 @@
 from fastapi import APIRouter
 
-from app.services.simulation.service import create_school_network_batch, get_batch_summary
+from app.services.simulation.service import (
+    create_school_network_batch,
+    get_batch_summary,
+)
 from app.services.simulation.generators.school_generator import generate_school_network
 from app.services.simulation.telemetry.telemetry_generator import send_telemetry_batch
+from app.services.simulation.telemetry.telemetry_summary import telemetry_summary
 
 router = APIRouter(
     prefix="/api/v1/simulation",
@@ -28,3 +32,8 @@ def batch_summary(batch_id: int):
 @router.post("/batches/{batch_id}/telemetry/send")
 def send_batch_telemetry(batch_id: int, profile: str = "normal_school_day"):
     return send_telemetry_batch(batch_id=batch_id, profile=profile)
+
+
+@router.get("/batches/{batch_id}/telemetry/summary")
+def get_telemetry_summary(batch_id: int):
+    return telemetry_summary(batch_id)
