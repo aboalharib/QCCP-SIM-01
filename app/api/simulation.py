@@ -8,6 +8,7 @@ from app.services.simulation.generators.school_generator import generate_school_
 from app.services.simulation.telemetry.telemetry_generator import send_telemetry_batch
 from app.services.simulation.telemetry.telemetry_summary import telemetry_summary
 from app.services.simulation.qra.qra_alignment import run_qra_alignment, qra_summary
+from app.services.simulation.workorders.work_order_generator import generate_work_orders, work_order_summary
 
 router = APIRouter(
     prefix="/api/v1/simulation",
@@ -48,3 +49,13 @@ def run_batch_qra(batch_id: int):
 @router.get("/batches/{batch_id}/qra/summary")
 def get_qra_summary(batch_id: int):
     return qra_summary(batch_id)
+
+
+@router.post("/batches/{batch_id}/work-orders/generate")
+def generate_batch_work_orders(batch_id: int):
+    return generate_work_orders(batch_id)
+
+
+@router.get("/batches/{batch_id}/work-orders/summary")
+def get_work_order_summary(batch_id: int):
+    return work_order_summary(batch_id)

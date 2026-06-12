@@ -140,3 +140,18 @@ class SimulatedQraAlignment(Base):
     recommendation = Column(Text, nullable=False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SimulatedWorkOrder(Base):
+    __tablename__ = "simulated_work_orders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_id = Column(Integer, nullable=False, index=True)
+    device_uid = Column(String(80), nullable=False, index=True)
+    work_order_type = Column(String(80), nullable=False)
+    priority = Column(String(40), nullable=False)
+    status = Column(String(40), nullable=False, default="open")
+    source = Column(String(80), nullable=False)
+    description = Column(Text, nullable=False)
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
